@@ -52,14 +52,13 @@ module.exports = async (req, res) => {
         ];
         const randomUA = userAgents[Math.floor(Math.random() * userAgents.length)];
 
-        // 재시도 로직 (최대 3회)
+        // 재시도 로직 축소 (Vercel 타임아웃 방지)
         let response;
         let lastError;
-        for (let attempt = 1; attempt <= 3; attempt++) {
+        for (let attempt = 1; attempt <= 2; attempt++) {
             try {
-                // 재시도 시 약간의 지연
                 if (attempt > 1) {
-                    await new Promise(resolve => setTimeout(resolve, 500 * attempt));
+                    await new Promise(resolve => setTimeout(resolve, 200));
                 }
                 response = await axios.get(url, {
                     headers: {
@@ -67,6 +66,7 @@ module.exports = async (req, res) => {
                         'Accept': 'application/json, text/plain, */*',
                         'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
                         'Referer': 'https://m.land.naver.com/',
+                        'Origin': 'https://m.land.naver.com',
                         'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
                         'sec-ch-ua-mobile': '?0',
                         'sec-ch-ua-platform': '"Windows"',
@@ -74,13 +74,13 @@ module.exports = async (req, res) => {
                         'sec-fetch-mode': 'cors',
                         'sec-fetch-site': 'same-origin'
                     },
-                    timeout: 15000
+                    timeout: 8000 // 8초로 단축
                 });
-                break; // 성공하면 루프 탈출
+                break;
             } catch (retryErr) {
-                console.log(`⚠️ 시도 ${attempt}/3 실패: ${retryErr.message}`);
+                console.log(`⚠️ 시도 ${attempt}/2 실패: ${retryErr.message}`);
                 lastError = retryErr;
-                if (attempt === 3) throw lastError;
+                if (attempt === 2) throw lastError;
             }
         }
 
