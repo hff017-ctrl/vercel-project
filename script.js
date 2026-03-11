@@ -7,7 +7,9 @@ const CONFIG = {
 
     // Naver Real Estate Configuration
     NAVER_API_ENABLED: true, // 실시간 연동 활성화
-    NAVER_PROXY_URL: '/properties-data.json', // GitHub Actions에서 생성된 정적 JSON 파일 사용
+    NAVER_API_MODE: 'STATIC', // 'STATIC' (로컬 파일 사용), 'REALTIME' (실시간 서버 호출) 선택
+    NAVER_PROXY_URL: '/properties-data.json', // STATIC 모드일 때 사용
+    NAVER_REALTIME_URL: '/api/index', // REALTIME 모드일 때 사용
     REALTOR_ID: '6441115', // 삼성래미안부동산 중개사 ID
 
     // Sample Properties (Replace with real API data)
@@ -414,7 +416,7 @@ async function filterProperties(filters = {}) {
     }
 }
 
-// ===== Fetch Properties from Static JSON =====
+// ===== Fetch Properties =====
 async function fetchNaverProperties(page = 1, tradeType = '') {
     if (!CONFIG.NAVER_API_ENABLED) {
         console.log('📦 샘플 데이터 사용 중');
@@ -423,20 +425,38 @@ async function fetchNaverProperties(page = 1, tradeType = '') {
     }
 
     try {
-        console.log(`📡 정적 데이터 파일에서 로드 중... (페이지 ${page}, 유형: ${tradeType || '전체'})`);
+        // --- REALTIME 모드: 서버리스 함수(/api/index) 호출 ---
+        if (CONFIG.NAVER_API_MODE === 'REALTIME') {
+            console.log(`📡 실시간 API 호출 중... (페이지 ${page}, 유형: ${tradeType || '전체'})`);
+            const url = `${CONFIG.NAVER_REALTIME_URL}?page=${page}&tradeType=${tradeType}`;
+            const response = await fetch(url);
+            
+            if (!response.ok) throw new Error(`실시간 API 응답 오류: ${response.status}`);
+            
+            const data = await response.json();
+            if (data.success) {
+                return {
+                    properties: data.properties,
+                    totalCount: data.totalCount
+                };
+            } else {
+                throw new Error(data.error || '알 수 없는 API 오류');
+            }
+        }
 
-        // 모든 데이터를 한 번에 가져와서 메모리에 캐싱하거나 전역 변수로 관리할 수 있습니다.
-        // 여기서는 캐시를 위해 전역 변수 'allApiProperties'를 확인합니다.
+        // --- STATIC 모드: 생성된 JSON 파일 로드 ---
+        console.log(`📂 정적 데이터 파일에서 로드 중... (페이지 ${page}, 유형: ${tradeType || '전체'})`);
+
         if (typeof window.allApiProperties === 'undefined') {
             const response = await fetch(CONFIG.NAVER_PROXY_URL);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) throw new Error(`데이터 파일 로딩 실패: ${response.status}`);
             const data = await response.json();
 
             if (data.success && data.properties) {
                 window.allApiProperties = data.properties;
                 console.log(`✅ 총 ${window.allApiProperties.length}개 매물 로드 완료 (업데이트: ${data.lastUpdated})`);
             } else {
-                throw new Error('Invalid data format in JSON file');
+                throw new Error('올바르지 않은 데이터 형식');
             }
         }
 
@@ -446,7 +466,7 @@ async function fetchNaverProperties(page = 1, tradeType = '') {
             filtered = filtered.filter(p => p.type === tradeType);
         }
 
-        // 페이지네이션 처리 (클라이언트 사이드)
+        // 페이지네이션
         const pageSize = apiPageSize || 20;
         const startIndex = (page - 1) * pageSize;
         const pageProperties = filtered.slice(startIndex, startIndex + pageSize);
@@ -458,10 +478,15 @@ async function fetchNaverProperties(page = 1, tradeType = '') {
 
     } catch (error) {
         console.error('❌ 데이터 로드 오류:', error.message);
-        console.log('📦 샘플 데이터로 전환합니다.');
+        
+        // 실시간 모드 실패 시 정적 파일로 자동 폴백 시도
+        if (CONFIG.NAVER_API_MODE === 'REALTIME') {
+            console.log('⚠️ 실시간 API 실패로 정적 파일 폴백 시도...');
+            CONFIG.NAVER_API_MODE = 'STATIC';
+            return fetchNaverProperties(page, tradeType);
+        }
 
-        showApiErrorMessage();
-
+        showApiErrorMessage(error.message);
         const sampleData = CONFIG.SAMPLE_PROPERTIES.map(p => ({ ...p, isSample: true }));
         return { properties: sampleData, totalCount: sampleData.length };
     }
