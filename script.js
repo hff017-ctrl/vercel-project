@@ -7,9 +7,9 @@ const CONFIG = {
 
     // Naver Real Estate Configuration
     NAVER_API_ENABLED: true, // 실시간 연동 활성화
-    NAVER_API_MODE: 'STATIC', // 'STATIC' (로컬 파일 사용), 'REALTIME' (실시간 서버 호출) 선택
-    NAVER_PROXY_URL: '/properties-data.json', // STATIC 모드일 때 사용
-    NAVER_REALTIME_URL: '/api/index', // REALTIME 모드일 때 사용
+    NAVER_API_MODE: 'REALTIME', // 'REALTIME'으로 자동화
+    NAVER_PROXY_URL: '/properties-data.json',
+    NAVER_REALTIME_URL: '/api/proxy', // 신규 프록시 주소
     REALTOR_ID: '6441115', // 삼성래미안부동산 중개사 ID
 
     // Sample Properties (Replace with real API data)
