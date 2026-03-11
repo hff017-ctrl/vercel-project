@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="프리미엄 부동산 매물 정보 - 네이버 부동산 실시간 연동">
+    <title>삼성래미안부동산 - 당신의 꿈을 찾아드립니다</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="https://www.youtube.com/@소확행부동산" target="_blank" class="youtube-badge">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="#FF0000">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                        <span class="youtube-text">소확행부동산TV</span>
+                    </a>
+                    <a href="https://blog.naver.com/hff018" target="_blank" class="blog-badge">
+                        <svg viewBox="0 0 24 24" width="22" height="22">
+                            <rect x="0" y="0" width="24" height="24" rx="8" fill="white" />
+                            <path
+                                d="M7 16V8h2.5c2 0 3.5 1.5 3.5 4s-1.5 4-3.5 4H7zm2-2h0.5c1 0 1.5-0.5 1.5-2s-0.5-2-1.5-2H9v4z"
+                                fill="#03C75A" />
+                            <rect x="15" y="8" width="2" height="8" fill="#03C75A" />
+                        </svg>
+                        <span class="blog-text">삼성래미안부동산</span>
+                    </a>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">홈</a></li>
+                    <li><a href="#properties" class="nav-link">매물</a></li>
+                    <li><a href="#videos" class="nav-link">영상</a></li>
+                    <li><a href="#services" class="nav-link">서비스</a></li>
+                    <li><a href="#contact" class="nav-link">문의</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+
+                <h1 class="hero-title">
+                    <span class="hero-title-main">당신의 꿈을 찾아드립니다</span>
+                    <span class="hero-title-sub">프리미엄 부동산 매물 정보</span>
+                </h1>
+                <p class="hero-description">
+                    실시간 연동되는 최신 매물 정보를 만나보세요
+                </p>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label>거래 유형</label>
+                    <select id="filterType" class="filter-select">
+                        <option value="">전체</option>
+                        <option value="매매">매매</option>
+                        <option value="전세">전세</option>
+                        <option value="월세">월세</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>가격 범위</label>
+                    <select id="filterPrice" class="filter-select">
+                        <option value="">전체</option>
+                        <option value="1">1억 이하</option>
+                        <option value="2">1억 ~ 2억</option>
+                        <option value="3">2억 ~ 3억</option>
+                        <option value="4">3억 ~ 4억</option>
+                        <option value="5">4억 ~ 5억</option>
+                        <option value="6">5억 ~ 6억</option>
+                        <option value="7">6억 이상</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>면적</label>
+                    <select id="filterSize" class="filter-select">
+                        <option value="">전체</option>
+                        <option value="S">60㎡ 이하</option>
+                        <option value="M">60㎡ ~ 85㎡</option>
+                        <option value="L">85㎡ ~ 135㎡</option>
+                        <option value="XL">135㎡ 이상</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>매물 유형</label>
+                    <select id="filterPropertyType" class="filter-select">
+                        <option value="">전체 매물</option>
+                        <option value="아파트/오피스텔">아파트 · 오피스텔</option>
+                        <option value="빌라/주택">빌라 · 주택</option>
+                        <option value="상가/사무실">상가 · 사무실</option>
+                        <option value="공장/창고">공장 · 창고</option>
+                        <option value="토지">토지</option>
+                    </select>
+                </div>
+                <button class="filter-apply-btn" id="applyFilter">
+                    <span>필터 적용</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section class="properties-section" id="properties">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">추천 매물</h2>
+                <p class="section-subtitle">실시간 생생한 매물 정보</p>
+            </div>
+
+            <div class="properties-loading" id="propertiesLoading">
+                <div class="loading-spinner"></div>
+                <p>매물 정보를 불러오는 중...</p>
+            </div>
+
+            <div class="properties-grid" id="propertiesGrid">
+                <!-- Properties will be loaded dynamically -->
+            </div>
+
+            <div class="load-more-container">
+                <p class="load-more-guide">더 많은 매물이 있으니 다음 페이지로 이동하도록 버튼 클릭 !!</p>
+                <button class="load-more-btn" id="loadMoreBtn">매물 더보기 클릭</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Videos Section -->
+    <section class="videos-section" id="videos">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">부동산 정보 영상</h2>
+                <p class="section-subtitle">유용한 부동산 정보를 영상으로 만나보세요</p>
+            </div>
+
+            <div class="videos-grid" id="videosGrid">
+                <!-- Videos will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">우리의 서비스</h2>
+                <p class="section-subtitle">고객님의 성공적인 부동산 거래를 위해</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3 class="service-title">매물 검색</h3>
+                    <p class="service-description">네이버 부동산과 실시간 연동되는 최신 매물 정보를 제공합니다</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💼</div>
+                    <h3 class="service-title">전문 상담</h3>
+                    <p class="service-description">경험 많은 전문가가 1:1 맞춤 상담을 제공합니다</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏆</div>
+                    <h3 class="service-title">계약 지원</h3>
+                    <p class="service-description">안전한 계약 체결부터 등기까지 전 과정을 지원합니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2 class="section-title">문의하기</h2>
+                    <p class="section-subtitle">궁금하신 점이 있으시면 언제든 연락주세요</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-text">
+                                <h4>전화 문의</h4>
+                                <p>053-644-1115</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">✉️</div>
+                            <div class="contact-text">
+                                <h4>이메일</h4>
+                                <p>hff017@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🕐</div>
+                            <div class="contact-text">
+                                <h4>운영 시간</h4>
+                                <p>평일 09:00 - 18:30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <form action="https://formsubmit.co/hff017@gmail.com" method="POST" class="contact-form"
+                        id="contactForm">
+                        <!-- FormSubmit 설정 -->
+                        <input type="hidden" name="_subject" value="[부동산 문의] 새로운 문의가 도착했습니다">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <!-- 전송 후 이동할 페이지 설정 -->
+                        <input type="hidden" name="_next" value="https://r-6441115.vercel.app/success.html">
+                        <div class="form-group">
+                            <input type="text" id="contactName" name="이름" placeholder="이름" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="contactPhone" name="연락처" placeholder="연락처" required
+                                class="form-input">
+                        </div>
+                        <!-- 이메일 입력 필드 삭제 -->
+                        <div class="form-group">
+                            <textarea id="contactMessage" name="문의내용" placeholder="문의 내용" rows="5" required
+                                class="form-input"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span>문의하기</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>빠른 링크</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">홈</a></li>
+                        <li><a href="#properties">매물</a></li>
+                        <li><a href="#videos">영상</a></li>
+                        <li><a href="#services">서비스</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>고객 지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">문의하기</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <ul class="footer-links">
+                        <li>📞 053-644-1115</li>
+                        <li>✉️ hff017@gmail.com</li>
+                        <li>🕐 평일 09:00 - 18:30</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="business-info">
+                    <p>
+                        <span><strong>상호</strong> : 삼성래미안공인중개사사무소</span>
+                        <span class="separator">|</span>
+                        <span><strong>대표</strong> : 정희정</span>
+                        <span class="separator">|</span>
+                        <span><strong>등록번호</strong> : 27290-2019-00117</span>
+                        <span class="separator">|</span>
+                        <span><strong>주소</strong> : 대구 달서구 대곡동 1012번지 수목원삼성래미안 아파트상가 105호</span>
+                        <br class="mobile-break">
+                        <span>(아파트 단지 108동 앞 위치)</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Property Detail Modal -->
+    <div class="modal" id="propertyModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Property details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=3"></script>
+</body>
+
+</html>

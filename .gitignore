@@ -1,0 +1,19 @@
+node_modules
+.DS_Store
+*.bak
+naver-api-proxy.js
+server.js
+실행하기.bat
+package-lock.json
+debug_data.js
+test-response.json
+test.html
+success.html
+기술가이드_20260207.md
+완성요약.md
+시작하기.txt
+매물홈페이지 실시간 연동 가이드_2026.pdf
+매물홈페이지 핵심 로직.JPG
+.gemini
+.vercel
+.env*.local
